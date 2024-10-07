@@ -4,10 +4,13 @@ import { AddShoppingCart, Balance, FavoriteBorder } from "@mui/icons-material";
 import useFetch from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartReducer";
 
 const Product = () => {
   const id = useParams().id;
 
+  const dispatch = useDispatch();
   // const images = [
   //   "https://mendeez.com/cdn/shop/files/10-2_634e3f50-ff7f-4582-9b8a-aca9c3457f37.jpg?crop=region&crop_height=1074&crop_left=0&crop_top=2&crop_width=720&v=1723905145&width=900/",
   //   "https://mendeez.com/cdn/shop/files/12-2_7b190bbf-f4f6-441c-8ebe-bc6ddc572514.jpg?crop=region&crop_height=1074&crop_left=0&crop_top=2&crop_width=720&v=1723905135&width=900/",
@@ -45,7 +48,16 @@ const Product = () => {
           {quantity}
           <button onClick={() => setQuantity(prev=> prev + 1)}>+</button>
         </div>
-        <button className="add">
+        <button className="add" onClick={() => {
+          dispatch(addToCart({
+            id: data.id,
+            title: data.title,
+            price: data.price,
+            desc: data.desc,
+            quantity,
+            img: data.img.url
+          }))
+        }}>
           <AddShoppingCart /> ADD TO CART
         </button>
         <div className="links">
