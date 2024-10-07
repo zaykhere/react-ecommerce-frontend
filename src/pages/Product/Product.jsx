@@ -55,7 +55,8 @@ const Product = () => {
             price: data.price,
             desc: data.desc,
             quantity,
-            img: data.img.url
+            img: data.img.url,
+            documentId: data.documentId
           }))
         }}>
           <AddShoppingCart /> ADD TO CART
